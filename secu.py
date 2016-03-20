@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 import gnupg
 
 cwd = os.getcwd()
@@ -76,8 +77,7 @@ def main():
     if len(sys.argv) == 2:
         gen_gpg()
         encrypt(sys.argv[1])
-        #envoie des cles qui se situent dans key.asc
-        os.rename(cwd + "/" + "key.asc", cwd + "/" + sys.argv[1] + "/" + "key.asc")
+        subprocess.call("./send-mail")
         clean()
     elif sys.argv[1].endswith('.asc'):
         importe_cles(sys.argv[1])
