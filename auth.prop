@@ -1,0 +1,4 @@
+login=foo
+password=bar
+from=<foo@bar.com>
+rcpt=<foo@bar.com>
